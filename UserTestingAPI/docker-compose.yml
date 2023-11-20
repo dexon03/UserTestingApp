@@ -1,0 +1,25 @@
+﻿networks:
+  userTesting:
+      driver: bridge
+
+services:
+  usertestingapi:
+    image: userTestingApi
+    build:
+      context: .
+      dockerfile: UserTestingAPI/Dockerfile
+    depends_on: usertestingDb
+    networks: 
+      - userTesting
+  usertestingDb:
+    image: postgres:15.0
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: usertesting
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - userTesting
