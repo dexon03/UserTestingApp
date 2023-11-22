@@ -30,25 +30,22 @@ public static class DependencyInjection
         services.AddScoped<IRepository, Repository>();
         services.AddScoped<IJWTService, JWTService>();
         services.AddScoped<IAuthService, AuthService>();
-        // services.AddStackExchangeRedisCache(options =>
-        // {
-        //     options.Configuration = appConfiguration.GetConnectionString("Redis");
-        //     options.InstanceName = "";
-        // });
-        // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        //     .AddJwtBearer(opt =>
-        //     {
-        //         opt.TokenValidationParameters = new TokenValidationParameters
-        //         {
-        //             ValidateIssuer = true,
-        //             ValidateAudience = true,
-        //             ValidateLifetime = true,
-        //             ValidateIssuerSigningKey = true,
-        //             ValidIssuer = appConfiguration["Jwt:Issuer"],
-        //             ValidAudience = appConfiguration["Jwt:Audience"],
-        //             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appConfiguration["Jwt:Key"]))
-        //         };
-        //     });
+        services.AddScoped<ITestService, TestService>();
+        services.AddScoped<ITestCheckerService, TestCheckerService>();
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = appConfiguration["Jwt:Issuer"],
+                    ValidAudience = appConfiguration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appConfiguration["Jwt:Key"]))
+                };
+            });
         JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
         return services;
     }

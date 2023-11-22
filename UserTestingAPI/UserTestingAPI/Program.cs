@@ -1,4 +1,5 @@
 using Core.Database;
+using UserTestingAPI.Core.Exceptions;
 using UserTestingAPI.Setup;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,8 +33,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();

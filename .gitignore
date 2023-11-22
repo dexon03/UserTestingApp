@@ -375,9 +375,4 @@ psd
 thumb
 sketch
 
-identityDbDir
-vacanciesDbDir
-profileDbDir
-analyticsDbDir
-rabbitmq-data
-rabbitmq-logs
+postgres-data
