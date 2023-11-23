@@ -17,11 +17,11 @@ function RegisterPage() {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        const token = await restClient.post<TokenResponse>(ApiServicesRoutes.auth, { email, password } as RegisterModel);
+        const token = await restClient.post<TokenResponse>(ApiServicesRoutes.auth + '/register', { email, password } as RegisterModel);
 
         if (token) {
             setToken(token);
-            return navigate('/tests');
+            return navigate('/');
         }
     }
 

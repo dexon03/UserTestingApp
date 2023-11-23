@@ -17,7 +17,7 @@ function LoginPage({ setToken }: { setToken: (token: TokenResponse) => void }) {
         const token = await restClient.post<TokenResponse>(ApiServicesRoutes.auth + '/login', { email, password } as RegisterModel);
         if (token) {
             setToken(token);
-            return navigate('/tests');
+            return navigate('/');
         }
         
     }

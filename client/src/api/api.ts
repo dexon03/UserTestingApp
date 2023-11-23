@@ -34,7 +34,7 @@ api.interceptors.response.use(
 
                 localStorage.setItem('token', token);
 
-                originalRequest.headers.Authorization = `Bearer ${token}`;
+                originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
                 return axios(originalRequest);
             } catch (error) {
                 console.log(error);
