@@ -4,6 +4,7 @@ using System.Text;
 using Core.Database;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -22,6 +23,16 @@ public static class DependencyInjection
     private static Assembly ApplicationAssembly => Assembly.GetExecutingAssembly();
     public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration appConfiguration)
     {
+        services.AddHttpLogging(logging =>
+        {
+            // // Customize HTTP logging here.
+            // logging.LoggingFields = HttpLoggingFields.All;
+            // logging.RequestHeaders.Add("sec-ch-ua");
+            // logging.ResponseHeaders.Add("my-response-header");
+            // logging.MediaTypeOptions.AddText("application/javascript");
+            // logging.RequestBodyLogLimit = 4096;
+            // logging.ResponseBodyLogLimit = 4096;
+        });
         services.AddDbContext<UserTestingDbContext>(opt => opt.UseNpgsql(appConfiguration.GetConnectionString("DefaultConnection")));
         services.AddScoped<IMigrationsManager, MigrationsManager>();
         services.AddValidatorsFromAssembly(ApplicationAssembly);

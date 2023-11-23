@@ -26,15 +26,10 @@ public class TestCheckerService : ITestCheckerService
 
         var totalPoint = CalculatePoints(testWithQuestions, chosenOptions);
         
-        var userTest = new UserTests
-        {
-            Id = Guid.NewGuid(),
-            UserId = userId,
-            TestId = testId,
-            Mark = totalPoint,
-            CompletionDate = DateTime.UtcNow
-        };
-        await _repository.CreateAsync(userTest);
+        var userTest = await _repository.GetAsync<UserTests>(ut => ut.UserId == userId && ut.TestId == testId);
+        userTest.Mark = totalPoint;
+        userTest.CompletionDate = DateTime.Now;
+        _repository.Update(userTest);
         await _repository.SaveChangesAsync();
         return userTest.ToDto(testWithQuestions.TestTitle);
     }

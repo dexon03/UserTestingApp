@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Button, TextField, Container, Typography, Radio, RadioGroup, FormControlLabel } from '@mui/material';
+import { Button, TextField, Container, Typography, Radio } from '@mui/material';
 import { RestClient } from "../../api/rest.client.ts";
-import { TokenResponse } from "../../models/auth/token.response.ts";
-import { ApiServicesRoutes } from "../../api/api.services.routes.ts";
-import { RegisterModel } from "../../models/auth/register.model.ts";
 import useToken from '../../hooks/useToken.ts';
 import { useNavigate } from 'react-router-dom';
-import { Role } from '../../models/common/role.enum.ts';
+import { TokenResponse } from '../../models/auth/token.response.ts';
+import { ApiServicesRoutes } from '../../api/api.services.routes.ts';
+import { RegisterModel } from '../../models/auth/register.model.ts';
 
 function RegisterPage() {
     const [email, setEmail] = useState('');
@@ -18,11 +17,11 @@ function RegisterPage() {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        const token = 'test'
+        const token = await restClient.post<TokenResponse>(ApiServicesRoutes.auth, { email, password } as RegisterModel);
 
         if (token) {
             setToken(token);
-            return navigate('/vacancy');
+            return navigate('/tests');
         }
     }
 

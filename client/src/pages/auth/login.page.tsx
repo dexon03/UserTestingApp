@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from "react";
 import { RestClient } from "../../api/rest.client.ts";
 import { TokenResponse } from "../../models/auth/token.response.ts";
+import { RegisterModel } from '../../models/auth/register.model.ts';
+import { ApiServicesRoutes } from '../../api/api.services.routes.ts';
 
 function LoginPage({ setToken }: { setToken: (token: TokenResponse) => void }) {
     const [email, setEmail] = useState('');
@@ -12,9 +14,11 @@ function LoginPage({ setToken }: { setToken: (token: TokenResponse) => void }) {
     const restClient = new RestClient();
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const token = {} as TokenResponse
-        setToken(token);
-        navigate('');
+        const token = await restClient.post<TokenResponse>(ApiServicesRoutes.auth + '/login', { email, password } as RegisterModel);
+        if (token) {
+            setToken(token);
+            return navigate('/tests');
+        }
         
     }
     return (

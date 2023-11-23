@@ -43,9 +43,9 @@ public class AuthService : IAuthService
         return token;
     }
 
-    public async Task<TokenResponse> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default)
+    public async Task<TokenResponse> RefreshTokenAsync(RefreshTokenRequest request, CancellationToken cancellationToken = default)
     {
-        var userId = _jwtService.ValidateToken(refreshToken);
+        var userId = _jwtService.ValidateToken(request.RefreshToken);
         if (userId == null)
         {
             throw new ExceptionWithStatusCode("Invalid refresh token", HttpStatusCode.BadRequest);
