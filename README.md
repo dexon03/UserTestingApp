@@ -11,7 +11,7 @@
 docker-compose -up --build
 ```
 
-This command will start the API along with the necessary database components.
+    This command will start the API along with the necessary database components.
 
 3. Make sure you have Docker installed on your machine before running the above command.
 
@@ -28,6 +28,11 @@ This command will start the API along with the necessary database components.
 3. In the terminal, navigate to the client folder in your project directory.
 
 4. Run the following command:
+
+```bash
+npm install
+```
+5. After completing this command start client
 
 ```bash
 npm run dev
