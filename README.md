@@ -11,7 +11,8 @@
 docker-compose -up --build
 ```
 
-    This command will start the API along with the necessary database components.
+
+This command will start the API along with the necessary database components.
 
 3. Make sure you have Docker installed on your machine before running the above command.
 
